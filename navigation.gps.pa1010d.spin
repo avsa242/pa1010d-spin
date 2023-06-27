@@ -1,11 +1,11 @@
 {
     --------------------------------------------
     Filename: navigation.gps.pa1010d.spin
-    Author:
-    Description:
+    Author: Jesse Burt
+    Description: Driver for the PA1010D GPS module (I2C)
     Copyright (c) 2023
     Started Jun 26, 2023
-    Updated Jun 26, 2023
+    Updated Jun 27, 2023
     See end of file for terms of use.
     --------------------------------------------
 }
@@ -116,6 +116,8 @@ PRI sentence_start_found(): s | ch
 
 DAT
 {
+Copyright 2023 Jesse Burt
+
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction,
 including without limitation the rights to use, copy, modify, merge, publish, distribute,
