@@ -1,13 +1,12 @@
 {
-    --------------------------------------------
-    Filename: navigation.gps.pa1010d.spin
-    Author: Jesse Burt
-    Description: Driver for the PA1010D GPS module (I2C)
-    Copyright (c) 2023
-    Started Jun 26, 2023
-    Updated Jun 27, 2023
-    See end of file for terms of use.
-    --------------------------------------------
+----------------------------------------------------------------------------------------------------
+    Filename:       navigation.gps.pa1010d.spin
+    Description:    Driver for the PA1010D GPS module (I2C)
+    Author:         Jesse Burt
+    Started:        Jun 26, 2023
+    Updated:        May 11, 2026
+    Copyright (c) 2026 - See end of file for terms of use.
+----------------------------------------------------------------------------------------------------
 }
 
 CON
@@ -22,7 +21,7 @@ CON
 
 VAR
 
-    byte _sentence[nmea0183.SENTNC_MAX_LEN]
+    byte _sentence[nmea0183.SENTENCE_MAX_LEN]
     byte _RESET
 
 OBJ
@@ -60,27 +59,27 @@ PUB startx(SCL_PIN, SDA_PIN, I2C_HZ, RESET_PIN): status
 PUB stop()
 ' Stop the driver
     i2c.deinit()
-    bytefill(@_sentence, 0, nmea0183.SENTNC_MAX_LEN)
+    bytefill(@_sentence, 0, nmea0183.SENTENCE_MAX_LEN)
     _RESET := -1                                ' protect against reset() being called after
                                                 '   stop() is called
 
 PUB defaults()
 ' Set factory defaults
 
-PUB read_sentence(): o | byte i2c_buff[nmea0183.SENTNC_MAX_LEN], i
+PUB read_sentence(): o | byte i2c_buff[nmea0183.SENTENCE_MAX_LEN], i
 ' Read a sentence from the GPS module
 '   Returns: length of sentence read (not including start token or trailing newline)
     repeat until ( sentence_start_found() )
 
     { read a full-length sentence worth of data (actual sentence may be shorter) }
-    bytefill(@i2c_buff, 0, nmea0183.SENTNC_MAX_LEN)
-    i2c.rdblock_lsbf(@i2c_buff, nmea0183.SENTNC_MAX_LEN, i2c.NAK)
+    bytefill(@i2c_buff, 0, nmea0183.SENTENCE_MAX_LEN)
+    i2c.rdblock_lsbf(@i2c_buff, nmea0183.SENTENCE_MAX_LEN, i2c.NAK)
     i2c.stop()
 
     { now process it to copy out only the actual sentence }
     o := 0                                      ' init pointers
     i := 0
-    bytefill(@_sentence, 0, nmea0183.SENTNC_MAX_LEN)
+    bytefill(@_sentence, 0, nmea0183.SENTENCE_MAX_LEN)
     repeat
         _sentence[o++] := i2c_buff[i]
     until ( i2c_buff[i++] == $0a )              ' keep reading until newline found
@@ -116,7 +115,7 @@ PRI sentence_start_found(): s | ch
 
 DAT
 {
-Copyright 2023 Jesse Burt
+Copyright 2026 Jesse Burt
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction,

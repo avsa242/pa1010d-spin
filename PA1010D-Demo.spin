@@ -1,14 +1,13 @@
 {
-    --------------------------------------------
-    Filename: PA1010D-Demo.spin
-    Author: Jesse Burt
-    Description: Demo of the PA1010D GPS module driver (I2C)
+----------------------------------------------------------------------------------------------------
+    Filename:       PA1010D-Demo.spin
+    Description:    Demo of the PA1010D GPS module driver (I2C)
         * Raw sentence output
-    Copyright (c) 2023
-    Started Jun 26, 2023
-    Updated Jun 27, 2023
-    See end of file for terms of use.
-    --------------------------------------------
+    Author:         Jesse Burt
+    Started:        Jun 26, 2023
+    Updated:        May 11, 2026
+    Copyright (c) 2026 - See end of file for terms of use.
+----------------------------------------------------------------------------------------------------
 }
 
 CON
@@ -57,11 +56,11 @@ PUB setup()
         repeat
 
     { point the nmea0183 object to the location of the sentence }
-    nmea0183.ptr_sentence( gps.sentence_ptr() )
+    nmea0183.init( gps.sentence_ptr() )
 
 DAT
 {
-Copyright 2023 Jesse Burt
+Copyright 2026 Jesse Burt
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 associated documentation files (the "Software"), to deal in the Software without restriction,
