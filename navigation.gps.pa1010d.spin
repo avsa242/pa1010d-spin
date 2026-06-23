@@ -20,6 +20,7 @@ VAR
     byte _sentence[nmea0183.SENTENCE_MAX_LEN]
     byte _RESET
 
+
 OBJ
 
 { decide: Bytecode I2C engine, or PASM? Default is PASM if BC isn't specified }
@@ -32,12 +33,15 @@ OBJ
     time:       "time"                          ' basic timing functions
     nmea0183:   "protocol.navigation.nmea0183"
 
+
 PUB null()
 ' This is not a top-level object
+
 
 PUB start(): status
 ' Start using "standard" Propeller I2C pins and 100kHz
     return startx(DEF_SCL, DEF_SDA, DEF_HZ, -1)
+
 
 PUB startx(SCL_PIN, SDA_PIN, I2C_HZ, RESET_PIN): status
 ' Start using custom IO pins and I2C bus frequency
@@ -52,6 +56,7 @@ PUB startx(SCL_PIN, SDA_PIN, I2C_HZ, RESET_PIN): status
     ' Lastly - make sure you have at least one free core/cog 
     return FALSE
 
+
 PUB stop()
 ' Stop the driver
     i2c.deinit()
@@ -59,10 +64,12 @@ PUB stop()
     _RESET := -1                                ' protect against reset() being called after
                                                 '   stop() is called
 
+
 PUB defaults()
 ' Set factory defaults
 
-PUB read_sentence(): o | byte i2c_buff[nmea0183.SENTENCE_MAX_LEN], i
+
+PUB read_sentence(): o | i2c_buff[nmea0183.SENTENCE_MAX_LEN/4], i
 ' Read a sentence from the GPS module
 '   Returns: length of sentence read (not including start token or trailing newline)
     repeat until ( sentence_start_found() )
@@ -77,10 +84,11 @@ PUB read_sentence(): o | byte i2c_buff[nmea0183.SENTENCE_MAX_LEN], i
     i := 0
     bytefill(@_sentence, 0, nmea0183.SENTENCE_MAX_LEN)
     repeat
-        _sentence[o++] := i2c_buff[i]
-    until ( i2c_buff[i++] == $0a )              ' keep reading until newline found
+        _sentence[o++] := i2c_buff.byte[i]
+    until ( i2c_buff.byte[i++] == $0a )         ' keep reading until newline found
     _sentence[--o] := 0                         ' backtrack and clear the LF, CR
     _sentence[--o] := 0
+
 
 PUB reset()
 ' Reset the device
@@ -89,9 +97,11 @@ PUB reset()
         dira[_RESET] := 1
         outa[_RESET] := 1
 
+
 PUB sentence_ptr(): p
 ' Get the address of the sentence data buffer
     return @_sentence
+
 
 PRI sentence_start_found(): s | ch
 ' Find the start of sentence marker
