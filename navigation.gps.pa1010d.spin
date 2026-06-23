@@ -4,20 +4,16 @@
     Description:    Driver for the PA1010D GPS module (I2C)
     Author:         Jesse Burt
     Started:        Jun 26, 2023
-    Updated:        May 11, 2026
+    Updated:        Jun 23, 2026
     Copyright (c) 2026 - See end of file for terms of use.
 ----------------------------------------------------------------------------------------------------
 }
 
 CON
 
-    SLAVE_WR          = core#SLAVE_ADDR
-    SLAVE_RD          = core#SLAVE_ADDR|1
+    SLAVE_WR          = core.SLAVE_ADDR
+    SLAVE_RD          = core.SLAVE_ADDR|1
 
-    DEF_SCL           = 28
-    DEF_SDA           = 29
-    DEF_HZ            = 100_000
-    I2C_MAX_FREQ      = core#I2C_MAX_FREQ
 
 VAR
 
@@ -28,9 +24,9 @@ OBJ
 
 { decide: Bytecode I2C engine, or PASM? Default is PASM if BC isn't specified }
 #ifdef PA1010D_I2C_BC
-    i2c :       "com.i2c.nocog"                 ' BC I2C engine
+    i2c:        "com.i2c.nocog"                 ' BC I2C engine
 #else
-    i2c :       "com.i2c"                       ' PASM I2C engine
+    i2c:        "com.i2c"                       ' PASM I2C engine
 #endif
     core:       "core.con.pa1010d.spin"         ' hw-specific low-level const's
     time:       "time"                          ' basic timing functions
