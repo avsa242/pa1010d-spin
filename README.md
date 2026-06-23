@@ -16,19 +16,22 @@ This is a P8X32A/Propeller, P2X8C4M64P/Propeller 2 driver object for the PA1010D
 
 P1/SPIN1:
 * spin-standard-library
+* [nmea0183-spin](https://github.com/avsa242/nmea0183-spin)
+
 
 P2/SPIN2:
 * p2-spin-standard-library
+* [nmea0183-spin](https://github.com/avsa242/nmea0183-spin)
 
 
 ## Compiler Compatibility
 
 | Processor | Language | Compiler               | Backend      | Status                |
 |-----------|----------|------------------------|--------------|-----------------------|
-| P1        | SPIN1    | FlexSpin (7.6.5)       | Bytecode     | OK                    |
-| P1        | SPIN1    | FlexSpin (7.6.5)       | Native/PASM  | OK                    |
-| P2        | SPIN2    | FlexSpin (7.6.5)       | NuCode       | Not yet implemented   |
-| P2        | SPIN2    | FlexSpin (7.6.5)       | Native/PASM2 | Not yet implemented   |
+| P1        | SPIN1    | FlexSpin (7.6.11)      | Bytecode     | OK                    |
+| P1        | SPIN1    | FlexSpin (7.6.11)      | Native/PASM  | OK                    |
+| P2        | SPIN2    | FlexSpin (7.6.11)      | NuCode       | Runtime issues        |
+| P2        | SPIN2    | FlexSpin (7.6.11)      | Native/PASM2 | OK                    |
 
 (other versions or toolchains not listed are __not supported__, and _may or may not_ work)
 
